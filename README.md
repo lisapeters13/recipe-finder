@@ -1,17 +1,8 @@
 
+Welcome to my recipe finder. Here you can find recipes based on ingredients you already have. 
 
-## Introduction
-
-In this challenge you'll be building an app for rating ramen.
-You will be using a local API and building out
-the frontend for our app.
-
-## Demo
-
-Use this gif as an example of how the app should work.
-
-![demo](https://curriculum-content.s3.amazonaws.com/phase-1/phase-1-mock-cc-ramen-rater/demo-gif.gif)
-
+## Design 
+![alt text](<recipe_finder.drawio (1).png>)
 ## Setup
 
 - Run `npm install` to install the dependencies.
@@ -27,30 +18,29 @@ Your base URL for your API will be: `http://localhost:3000`
 
 The endpoints you may need are:
 
-- GET `/ramens`
-- GET `/ramens/:id`
+- GET `/recipe`
+- GET `/recipe/:id`
 
-Feel free to add any additional classes or ids to any elements in the HTML file
-as you see fit.
+
 
 ## Core Deliverables
 
 As a user, I can:
 
-- See all ramen images in the `div` with the id of `ramen-menu`. When the page
-  loads, fire a function called `displayRamens` that requests the data from the server
-  to get all the ramen objects. Then,
-  display the image for each of the ramen using an `img` tag inside the
-  `#ramen-menu` div.
-- Click on an image from the `#ramen-menu` div and fire a callback called `handleClick`
+- See all recipe images in the `div` with the id of `recipe-menu`. When the page
+  loads, fire a function called `displayRecipes` that requests the data from the server
+  to get all the recipe objects. Then,
+  display the image for each of the recipes using an `img` tag inside the
+  `#recipe-menu` div.
+- Click on an image from the `#recipe-menu` div and fire a callback called `handleClick`
   to see all the info about that
-  ramen displayed inside the `#ramen-detail` div (where it says
+  ramen displayed inside the `#recipe-detail` div (where it says
   `insert comment here` and `insert rating here`).
-- Attach a submit even listener to the `new-ramen` form using a function called `addSubmitListener`.
-  After the submission, create a new ramen and add it to the`#ramen-menu` div. The new ramen does not need to persist; in other words, if you refresh the page, it's okay that the new ramen is no
+- Attach a submit even listener to the `new-recipe` form using a function called `addSubmitListener`.
+  After the submission, create a new ramen and add it to the`#recipe-menu` div. The new recipe does not need to persist; in other words, if you refresh the page, it's okay that the new recipe is no
   longer on the page.
 
-** Attention here **: Your program should have a main() function that invokes `displayRamens` and `addSubmitListener` after the DOM has fully loaded and start the program logic.
+** Attention here **: Your program should have a main() function that invokes `displayRecipes` and `addSubmitListener` after the DOM has fully loaded and start the program logic.
 
 ## Advanced Deliverables
 
@@ -69,32 +59,3 @@ As a user, I can:
   be reflected on the frontend. No need to persist. You can add this HTML to the
   `index.html` file to create the edit form:
 
-```html
-<form id="edit-ramen">
-  <h4>Update the Featured Ramen</h4>
-  <label for="edit-rating">Rating: </label>
-  <input type="number" name="edit-rating" id="edit-rating" />
-  <label for="edit-comment">Comment: </label>
-  <textarea name="edit-comment" id="edit-comment"></textarea>
-  <input type="submit" value="Update" />
-</form>
-```
-
-- Delete a ramen (you can add a "delete" button if you'd like, or use an
-  existing element to handle the delete action). The ramen should be removed
-  from the `ramen-menu` div, and should not be displayed in the `ramen-detail`
-  div. No need to persist.
-
-## Extra Advanced Deliverables
-
-You'll need these endpoints for the advanced deliverables:
-
-- POST `/ramens`
-- DELETE `/ramens/:id`
-- PATCH `/ramens/:id`
-
-As a user, I can:
-
-- persist my updates to a ramen's rating and comment. (PATCH request)
-- persist new ramens that I create (POST request)
-- persist any ramen deletions (DELETE request)

@@ -1,0 +1,81 @@
+{
+  "recipes": [
+    {
+        "id": 1,
+        "name": "Capellini recipe",
+        "image": "./assets/recipes/recipe1.jpeg",
+        "ingredients": ["8 ounces dried capellini or angel hair pasta", "2 cloves garlic",
+                        "3 ounces Parmesan cheese", 
+                        "1 large lemon",
+                        "1/4 cup olive oil",
+                        "1 teaspoon kosher salt",
+                        "1/2 teaspoon red pepper flakes", 
+                        "1/4 teaspoon freshly ground black pepper"],
+        "instructions": ["Bring a large pot of heavily salted water to a boil. Add 8 ounces dried capellini and cook according to package directions until al dente. Meanwhile, thinly slice 2 garlic cloves. Finely grate 3 ounces Parmesan cheese (about 1 cup); grate more for serving if desired. Finely grate the zest of 1 large lemon until you have 1 tablespoon; juice the lemon until you have 1/4 cup.",
+        "When the pasta is ready, reserve 1 cup of the pasta water. Drain the pasta.",
+        "Return the pot to medium heat, add 1/4 cup olive oil, and heat until shimmering. Add the garlic and sauté until fragrant, 1 to 2 minutes. Reduce the heat to low, add the pasta, and gently toss until coated in the oil.",
+        "Add 1/2 cup of the reserved pasta water, 1 teaspoon kosher salt, 1/2 teaspoon red pepper flakes, and 1/4 teaspoon black pepper. Gently toss until combined. If the pasta is dry, toss in more pasta water 1 tablespoon at a time.",
+        "Turn off the heat. Add the Parmesan, lemon zest, and lemon juice. Toss until combined. Serve with more grated Parmesan and red pepper flakes if desired"]
+    },
+    {
+      "id": 2,
+      "name": "Creamy Bacon Hasselback Chicken",
+      "image": "./assets/recipes/recipe2.jpg",
+      "ingredients": ["4 chicken breasts",
+                      "4 rashers bacon", 
+                      "2 spring onions",
+                      "½ cup cream cheese"],
+      "instructions": ["Slice into the chicken several times, about ½ cm (¼ inch) apart, but only cut about 85% of the way through, leaving the bottom intact.",
+                        "Cook the bacon over a medium heat until it starts to get crispy.",
+                        "Preheat the oven to 350°F (180°C).",
+                        "Stir in the spring onions and cook for another minute or so.",
+                        "Add the cream cheese and cook until melted.",
+                        "Allow filling to cool to the touch, and then fill each segment of the chicken breast with about 1 teaspoon of the mixture.",
+                        "Bake in the centre of the oven for 18-22 minutes until the chicken is cooked through and the juices run clear."]
+  }, 
+  {
+    "id": 3,
+    "name": "Dough Pizza",
+    "image": "./assets/recipes/recipe3.webp",
+    "ingredients": ["1 ¾ cups self-rising flour",
+    "1 cup greek yogurt",
+    "½ cup pizza sauce",
+    "1 cup shredded mozzarella cheese", 
+    "pepperoni slice"],
+    "instructions": ["Preheat oven to 400°F (200°C)",
+                      "In a large bowl, mix the self-rising flour and Greek yogurt until it comes together to form a ball",
+                      "Transfer the dough ball to a lightly floured work surface and use your hands to begin flattening and shaping the rough into about a 12-inch (30 cm) round. If at any point the dough begins to stick, sprinkle on a bit more flour",
+                      "Carefully transfer the dough to a lightly floured baking sheet",
+                      "Spread the sauce evenly across the dough, sprinkle on the cheese, and top with pepperonis",
+                      "Bake for 20 minutes, until the cheese has melted and the crust has turned golden-brown"]
+}, 
+{
+  "id": 4,
+  "name": "Beef & Bean Burritos",
+  "image": "./assets/recipes/recipe4.jpg",
+  "ingredients": ["1 lb ground beef",
+                  "2 tablespoons taco seasoning",
+                  "6 flour tortillas",
+                  "16 oz refried bean",
+                  "1 cup shredded mexican cheese blend"],
+  "instructions": ["Add ground beef to a large skillet over high heat and sprinkle with taco seasoning. Cook, breaking up the meat, until browned. Drain the fat and set aside to cool",
+                    "Assemble the burritos by microwaving the flour tortilla for 20 seconds, and begin to layer burrito starting with refried beans, followed by the cooked beef and cheese",
+                    "Fold in the left and right sides of the tortilla and roll it up from the bottom, tucking the bottom edge under the filling. Wrap in parchment paper and label. Freeze up to 1 month",
+                    "To reheat from frozen, wrap the burrito in a damp paper towel and microwave for 2-3 minutes, flipping halfway or until the center is hot. Let stand 1 minute before eating"]
+}, 
+{
+  "id": 5,
+  "name": "Pesto Chicken & Veggies",
+  "image": "./assets/recipes/recipe5.jpg",
+  "ingredients": ["2 tablespoons olive oil",
+                  "4 boneless, skinless chicken thighs",
+                  "1 lb green beans",
+                  "2 cups cherry tomatoes",
+                  "½ cup basil pesto"],
+  "instructions": ["Heat the olive oil in a large pan over medium heat, then add the chicken thighs. Season with salt and pepper. Cook until the chicken is no longer pink in the center, then remove from the pan. Slice into strips",
+                    "Add the green beans to the same pan and cook until tender-crisp",
+                    "Return the chicken strips to the pan, then add the tomatoes and pesto. Stir until fully incorporated",
+                    "Serve immediately or divide into 4 food storage containers and store in the refrigerator for up to 4 days"]
+}
+]
+}

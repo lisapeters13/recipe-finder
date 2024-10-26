@@ -1,0 +1,23 @@
+{
+  "name": "recipe-finder",
+  "version": "1.0.0",
+  "description": "finding recipes based on ingredients user submits",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest --run --environment happy-dom"
+  },
+  "keywords": [
+    "flatiron school",
+    "javascript",
+    "dom",
+    "fetch",
+    "api",
+    "user events"
+  ],
+  "author": "lisa peters",
+  "dependencies": {
+    "@testing-library/dom": "^9.3.4",
+    "happy-dom": "^13.2.1",
+    "vitest": "^1.2.1"
+  }
+}
