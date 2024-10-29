@@ -1,0 +1,12 @@
+search_key = onion
+
+1. go over each recipe in database
+2. within each recipe, find the key named = "ingredients"
+3. for each string in the ingredient list, search for the word in "search_key"
+4. if search_key is found. Return the recipe
+
+* using the above pseudocode, only first recipe containing the search_key will be returned.
+
+
+improvement for later
+return  all recipes with the search_key in ingredients list

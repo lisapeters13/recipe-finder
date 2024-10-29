@@ -51,8 +51,29 @@ const displayRecipes = () => {
     });
 };
 
+//get content of search box
+const getIngredient = () => {
+// Get the search button element
+const searchButton = document.getElementById("search-btn"); 
+
+// Add an event listener for the "click" event
+searchButton.addEventListener("click", function() { //add second lister for "return key"
+  // Code to execute when the button is clicked
+  const searchTerm = document.getElementById("search-text").value;
+  console.log("Searching for:", searchTerm); 
+
+  // Perform your search logic here
+});
+}
+
+//search by ingredients
+const searchRecipe = () => {
+
+} 
+
 const main = () => {
   displayRecipes();         // Load and display recipe images
+  getIngredient();
   // addSubmitListener();     // Attach form submit listener for adding new recipes
 };
 
@@ -62,6 +83,7 @@ document.addEventListener('DOMContentLoaded', main); // Ensure DOM is loaded bef
 export {
   displayRecipes,
   // addSubmitListener,
+  getIngredient,
   handleClick,
   main,
 };
