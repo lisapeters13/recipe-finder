@@ -56,6 +56,30 @@ const getIngredient = () => {
 // Get the search button element
 const searchButton = document.getElementById("search-btn"); 
 
+function searchRecipe(ingredient) {
+  fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
+    .then(response => response.json())
+    .then(filteredRecipes => {
+      displaySearchResults(filteredRecipes);
+    })
+    .catch(error => {
+      console.error("Error fetching recipes:", error);
+    });
+}
+
+// Function to initiate the search for recipes based on an ingredient
+function searchRecipe(ingredient) {
+  fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
+    .then(response => response.json())
+    .then(filteredRecipes => {
+      displaySearchResults(filteredRecipes);
+    })
+    .catch(error => {
+      console.error("Error fetching recipes:", error);
+    });
+}
+
+
 // Add an event listener for the "click" event
 searchButton.addEventListener("click", function() { //add second lister for "return key"
   // Code to execute when the button is clicked
@@ -87,3 +111,26 @@ export {
   handleClick,
   main,
 };
+
+// JavaScript for toggling dark mode
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleButton = document.getElementById('mode-toggle');
+  const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+
+  // Apply saved mode preference
+  if (isDarkMode) {
+    document.body.classList.add('dark-mode');
+    toggleButton.textContent = 'Switch to Light Mode';
+  } else {
+    toggleButton.textContent = 'Switch to Dark Mode';
+  }
+
+  // Toggle dark mode on button click
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const darkModeEnabled = document.body.classList.contains('dark-mode');
+    localStorage.setItem('dark-mode', darkModeEnabled);
+
+    toggleButton.textContent = darkModeEnabled ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  });
+});
