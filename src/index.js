@@ -51,11 +51,6 @@ const displayRecipes = () => {
     });
 };
 
-//get content of search box
-const getIngredient = () => {
-// Get the search button element
-const searchButton = document.getElementById("search-btn"); 
-
 // function searchRecipe(ingredient) {
 //   fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
 //     .then(response => response.json())
@@ -90,36 +85,65 @@ const searchButton = document.getElementById("search-btn");
 //   }
 
 // Add an event listener for the "click" event
-searchButton.addEventListener("click", function() { //add second lister for "return key"
-  // Code to execute when the button is clicked
-  const searchTerm = document.getElementById("search-text").value;
-  console.log("Searching for:", searchTerm); 
 
-  // Perform your search logic here
-});
-}
 
 //search by ingredients
 const searchRecipe = () => {
 
 } 
+//get content of search box
+const searchIngredient = () => {
+  fetch('http://localhost:3000/recipes')
+  .then(response => response.json())
+  .then(recipeData => {
+    // Get the search button element
+    const searchButton = document.getElementById("search-btn"); 
 
-const main = () => {
-  displayRecipes();         // Load and display recipe images
-  getIngredient();
-  // addSubmitListener();     // Attach form submit listener for adding new recipes
-};
+    // Add an event listener for the "click" event
+    searchButton.addEventListener( "click", function() { //add second lister for "return key"
+      // Code to execute when the button is clicked
+      const searchTerm = document.getElementById("search-text").value;
+     
+      console.log("Searching for:", searchTerm); 
 
-document.addEventListener('DOMContentLoaded', main); // Ensure DOM is loaded before starting
+      // Perform your search logic here
+      const resultData = document.getElementById('recipe-results');  // Get #recipe-results div
+      const recipeImage = document.getElementById('recipe-img');
+      const msg = document.createElement('p');
+      msg.innerText = "No recipes found with ingredient";
 
-// Export functions for testing
-export {
-  displayRecipes,
-  // addSubmitListener,
-  getIngredient,
-  handleClick,
-  main,
-};
+      //clear result section for new results
+      resultData.replaceChildren("")
+
+      recipeData.forEach(recipe => {
+
+        const ingredients = recipe.ingredients
+        const containsSubstring = ingredients.some(str => str.includes(searchTerm)); //returns true if found
+        
+        //check for empty or whitespace
+        if (/\S/.test(searchTerm) && containsSubstring) {
+          console.log(ingredients)
+
+          // Create an img element for the recipe
+          const img = document.createElement('img');
+          img.src = recipe.image;
+          img.alt = recipe.name;  // Add alt text for accessibility
+          resultData.appendChild(img);
+
+          //clear message for ingredients not found
+          msg.innerText = "";
+
+        } 
+      });
+
+      resultData.appendChild(msg);
+
+    });
+  });
+}; 
+
+
+
 
 // JavaScript for toggling dark mode
 document.addEventListener('DOMContentLoaded', () => {
@@ -144,38 +168,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Define the search key
-const searchKey = "onion";
 
-// Function to find the first recipe containing the search key
-const findRecipeByIngredient = (recipes, searchKey) => {
-  // Iterate over each recipe
-  for (let recipe of recipes) {
-    // Get the ingredients from each recipe
-    const ingredients = recipe.ingredients;
-
-    // Check if any ingredient contains the search key (case-insensitive)
-    for (let ingredient of ingredients) {
-      if (ingredient.toLowerCase().includes(searchKey.toLowerCase())) {
-        return recipe; // Return the first recipe that matches
-      }
-    }
-  }
-
-  return null; // If no recipe matches, return null
+const main = () => {
+  displayRecipes();         // Load and display recipe images
+  searchIngredient();
+  // addSubmitListener();     // Attach form submit listener for adding new recipes
 };
 
-// Sample usage
-fetch('http://localhost:3000/recipes')
-  .then(response => response.json())
-  .then(recipes => {
-    const foundRecipe = findRecipeByIngredient(recipes, searchKey);
-    if (foundRecipe) {
-      console.log("Recipe found:", foundRecipe);
-    } else {
-      console.log("No recipe found with the ingredient:", searchKey);
-    }
-  })
-  .catch(error => console.error("Error fetching recipes:", error));
+document.addEventListener('DOMContentLoaded', main); // Ensure DOM is loaded before starting
 
+// Export functions for testing
+export {
+  displayRecipes,
+  // addSubmitListener,
+  searchIngredient,
+  handleClick,
+  main,
+};
   
