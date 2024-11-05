@@ -56,29 +56,38 @@ const getIngredient = () => {
 // Get the search button element
 const searchButton = document.getElementById("search-btn"); 
 
-function searchRecipe(ingredient) {
-  fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
-    .then(response => response.json())
-    .then(filteredRecipes => {
-      displaySearchResults(filteredRecipes);
-    })
-    .catch(error => {
-      console.error("Error fetching recipes:", error);
-    });
-}
+// function searchRecipe(ingredient) {
+//   fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
+//     .then(response => response.json())
+//     .then(filteredRecipes => {
+//       displaySearchResults(filteredRecipes);
+//     })
+//     .catch(error => {
+//       console.error("Error fetching recipes:", error);
+//     });
+// }
 
 // Function to initiate the search for recipes based on an ingredient
-function searchRecipe(ingredient) {
-  fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
-    .then(response => response.json())
-    .then(filteredRecipes => {
-      displaySearchResults(filteredRecipes);
-    })
-    .catch(error => {
-      console.error("Error fetching recipes:", error);
-    });
-}
+// function searchRecipe(ingredient) {
+//   fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
+//     .then(response => response.json())
+//     .then(filteredRecipes => {
+//       displaySearchResults(filteredRecipes);
+//     })
+//     .catch(error => {
+//       console.error("Error fetching recipes:", error);
+//     });
+// }
 
+// Function to display search results
+// const displaySearchResults(recipes) {
+//   const resultsContainer = document.getElementById("recipe-results");
+//   resultsContainer.innerHTML = ""; // Clear previous results
+
+//   if (recipes.length === 0) {
+//     resultsContainer.innerHTML = "<p>No recipes found for this ingredient.</p>";
+//     return;
+//   }
 
 // Add an event listener for the "click" event
 searchButton.addEventListener("click", function() { //add second lister for "return key"
@@ -134,3 +143,39 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButton.textContent = darkModeEnabled ? 'Switch to Light Mode' : 'Switch to Dark Mode';
   });
 });
+
+// Define the search key
+const searchKey = "onion";
+
+// Function to find the first recipe containing the search key
+const findRecipeByIngredient = (recipes, searchKey) => {
+  // Iterate over each recipe
+  for (let recipe of recipes) {
+    // Get the ingredients from each recipe
+    const ingredients = recipe.ingredients;
+
+    // Check if any ingredient contains the search key (case-insensitive)
+    for (let ingredient of ingredients) {
+      if (ingredient.toLowerCase().includes(searchKey.toLowerCase())) {
+        return recipe; // Return the first recipe that matches
+      }
+    }
+  }
+
+  return null; // If no recipe matches, return null
+};
+
+// Sample usage
+fetch('http://localhost:3000/recipes')
+  .then(response => response.json())
+  .then(recipes => {
+    const foundRecipe = findRecipeByIngredient(recipes, searchKey);
+    if (foundRecipe) {
+      console.log("Recipe found:", foundRecipe);
+    } else {
+      console.log("No recipe found with the ingredient:", searchKey);
+    }
+  })
+  .catch(error => console.error("Error fetching recipes:", error));
+
+  
