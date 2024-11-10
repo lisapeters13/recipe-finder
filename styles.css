@@ -207,3 +207,31 @@ body.dark-mode #mode-toggle {
   color: #333;
   margin: 0;
 }
+.recipe-container {
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+}
+
+.hover-text {
+  font-size: 0.9em;
+  color: #333;
+}
+/* Regular light mode hover text for images */
+.recipe-container img:hover + .hover-text {
+  color: #333;
+}
+
+/* Dark mode styles */
+.dark-mode .recipe-container img:hover + .hover-text {
+  color: #ccc;  /* Lighter color for hover text in dark mode */
+}
+
+.dark-mode #recipe-results h3 {
+  color: #ccc;  /* Light color for recipe names in dark mode */
+}
+
+/* Adjust other colors as needed */
+.dark-mode .hover-text {
+  color: #ccc;  /* Ensure hover text color matches dark mode */
+}

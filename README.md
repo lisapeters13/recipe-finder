@@ -23,7 +23,7 @@ The endpoints you may need are:
 
 
 
-## Core Deliverables
+
 
 As a user, I can:
 
@@ -33,29 +33,7 @@ As a user, I can:
   display the image for each of the recipes using an `img` tag inside the
   `#recipe-menu` div.
 - Click on an image from the `#recipe-menu` div and fire a callback called `handleClick`
-  to see all the info about that
-  ramen displayed inside the `#recipe-detail` div (where it says
-  `insert comment here` and `insert rating here`).
-- Attach a submit even listener to the `new-recipe` form using a function called `addSubmitListener`.
-  After the submission, create a new ramen and add it to the`#recipe-menu` div. The new recipe does not need to persist; in other words, if you refresh the page, it's okay that the new recipe is no
-  longer on the page.
-
-** Attention here **: Your program should have a main() function that invokes `displayRecipes` and `addSubmitListener` after the DOM has fully loaded and start the program logic.
-
-## Advanced Deliverables
-
-These deliverables are not required to pass the code challenge, but if you have
-the extra time, or even after the code challenge, they are a great way to
-stretch your skills.
-
-> Note: If you are going to attempt these advanced deliverables, please be sure
-> to have a working commit with all the Core Deliverables first!
-
-As a user, I can:
-
-- See the details for the first ramen as soon as the page loads (without
-  clicking on an image)
-- Update the rating and comment for a ramen by submitting a form. Changes should
-  be reflected on the frontend. No need to persist. You can add this HTML to the
-  `index.html` file to create the edit form:
+  to see all the info about the recipes displayed inside the `#recipe-detail` div
+- Click on search bar to search for a recipe containing the ingredients in the search bar and it will display image and name of the recipe in the 
+ `#results-data` div.
 

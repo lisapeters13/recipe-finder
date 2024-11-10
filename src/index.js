@@ -1,193 +1,104 @@
 const handleClick = (recipe) => {
-  document.querySelector('#recipe-detail img').src = recipe.image;
-  document.querySelector('#recipe-detail .name').textContent = recipe.name;
-  document.querySelector('#recipe-detail .ingredients').textContent = recipe.ingredients;
-
-  // Corrected: Update the right elements for instructions 
+  const detail = document.querySelector('#recipe-detail');
+  detail.querySelector('img').src = recipe.image;
+  detail.querySelector('.name').textContent = recipe.name;
+  detail.querySelector('.ingredients').textContent = recipe.ingredients;
   document.querySelector('#instructions-display').textContent = recipe.instructions; 
 };
 
 
 
-// The main function to display all recipe images
 const displayRecipes = () => {
   fetch('http://localhost:3000/recipes')
     .then(response => response.json())
     .then(recipeData => {
-      const recipeMenu = document.getElementById('recipe-menu');  // Get #recipe-menu div
+      const recipeMenu = document.getElementById('recipe-menu');
       recipeData.forEach(recipe => {
-        // Create an img element for each recipe
+        const container = document.createElement('div');  // Create a container for each recipe
+        container.className = 'recipe-container';
+
         const img = document.createElement('img');
         img.src = recipe.image;
-        img.alt = recipe.name;  // Add alt text for accessibility
-        img.addEventListener('click', () => handleClick(recipe));  // Attach click event
-        recipeMenu.appendChild(img); 
-       //mouse hover eventlistener 
-       document.getElementById("recipe-menu").addEventListener("mouseover", mouseOver(recipe.name));
+        img.alt = recipe.name;
+        img.addEventListener('click', () => handleClick(recipe));
+
+        const hoverText = document.createElement('p');  // Create hover text element
+        hoverText.className = 'hover-text';
+        hoverText.style.display = 'none';  // Initially hidden
+        hoverText.innerText = recipe.name;
+
+        // Add event listeners for mouseover and mouseout
+        img.addEventListener('mouseover', () => {
+          hoverText.style.display = 'block';  // Show hover text on hover
+        });
+        img.addEventListener('mouseout', () => {
+          hoverText.style.display = 'none';  // Hide hover text when not hovering
+        });
+
+        container.appendChild(img);
+        container.appendChild(hoverText);
+        recipeMenu.appendChild(container);
       });
     });
 };
 
-// document.getElementById("demo").addEventListener("mouseover", mouseOver);
-// document.getElementById("demo").addEventListener("mouseout", mouseOut);
-
-function mouseOver(recipename) {
-  const recipeMenu = document.getElementById('recipe-menu');  // Get #recipe-menu div
-  // document.getElementById("recipe-menu").innerHTML = "red";
-  const hoverTitle = document.createElement('p');
-  hoverTitle.InnerText=recipename;
-  recipeMenu.appendChild(hoverTitle);
-}
-
-function mouseOut() {
-  document.getElementById("recipe-menu").style.color = "black";
-}
-
-//get content of search box
 const searchIngredient = () => {
   fetch('http://localhost:3000/recipes')
-  .then(response => response.json())
-  .then(recipeData => {
-    //eventlistener for return key
-    document.querySelector('#search-text').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        // code for enter
-              
-        // Code to execute when the button is clicked
-        const searchTerm = document.getElementById("search-text").value;
-        //   const resultData = document.getElementById('recipe-results');
-        // resultData.innerHTML = "";    
-        
-          console.log("Searching for:", searchTerm); 
-    
-          // Perform your search logic here
-          const resultData = document.getElementById('recipe-results');  
-          // Get #recipe-results div
-          const recipeImage = document.getElementById('recipe-img');
-          const msg = document.createElement('p');
-          msg.innerText = "No recipes found with ingredient";
-    
-          //clear result section for new results
-          resultData.replaceChildren("")
-    
-          recipeData.forEach(recipe => {
-    
-            const ingredients = recipe.ingredients
-            const containsSubstring = ingredients.some(str => str.includes(searchTerm)); //returns true if found
-            
-            //check for empty or whitespace
-            if (/\S/.test(searchTerm) && containsSubstring) {
-              console.log(ingredients)
-    
-              // Create an img element for the recipe
-              const img = document.createElement('img');
-              img.src = recipe.image;
-              img.alt = recipe.name;  // Add alt text for accessibility
-              //create an element for the recipe title
-              const recipeTitle = document.createElement('h3')
-              recipeTitle.innerText = recipe.name;
-              
-              resultData.appendChild(img);
-              resultData.appendChild(recipeTitle)
-              //clear message for ingredients not found
-              msg.innerText = "";
-    
-            } 
-          });
-        }
-    });
-    // Get the search button element
-    const searchButton = document.getElementById("search-btn"); 
+    .then(response => response.json())
+    .then(recipeData => {
+      const handleSearch = () => {
+        const searchTerm = document.getElementById("search-text").value.trim();
+        const resultData = document.getElementById('recipe-results');
+        resultData.innerHTML = ""; // Clear previous results
+        let found = false;
 
-    // Add an event listener for the "click" event
-    searchButton.addEventListener( "click", function() { //add second lister for "return key"
-      // Code to execute when the button is clicked
-      const searchTerm = document.getElementById("search-text").value;
-    //   const resultData = document.getElementById('recipe-results');
-    // resultData.innerHTML = "";    
-     
-      console.log("Searching for:", searchTerm); 
+        recipeData.forEach(recipe => {
+          if (/\S/.test(searchTerm) &&recipe.ingredients.some(ing => ing.includes(searchTerm))) {
+            found = true;
+            const img = document.createElement('img');
+            img.src = recipe.image;
+            img.alt = recipe.name;
+            resultData.appendChild(img);
 
-      // Perform your search logic here
-      const resultData = document.getElementById('recipe-results');  
-      // Get #recipe-results div
-      const recipeImage = document.getElementById('recipe-img');
-      const msg = document.createElement('p');
-      msg.innerText = "No recipes found with ingredient";
+            const recipeTitle = document.createElement('h3');
+            recipeTitle.innerText = recipe.name;
+            resultData.appendChild(recipeTitle);
+          }
+        });
 
-      //clear result section for new results
-      resultData.replaceChildren("")
+        if (!found) resultData.innerText = "No recipes found with that ingredient.";
+      };
 
-      recipeData.forEach(recipe => {
-
-        const ingredients = recipe.ingredients
-        const containsSubstring = ingredients.some(str => str.includes(searchTerm)); //returns true if found
-        
-        //check for empty or whitespace
-        if (/\S/.test(searchTerm) && containsSubstring) {
-          console.log(ingredients)
-
-          // Create an img element for the recipe
-          const img = document.createElement('img');
-          img.src = recipe.image;
-          img.alt = recipe.name;  // Add alt text for accessibility
-          //create an element for the recipe title
-          const recipeTitle = document.createElement('h3')
-          recipeTitle.innerText = recipe.name;
-          
-          resultData.appendChild(img);
-          resultData.appendChild(recipeTitle)
-          //clear message for ingredients not found
-          msg.innerText = "";
-
-        } 
+      document.getElementById("search-btn").addEventListener('click', handleSearch);
+      document.getElementById("search-text").addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch();
       });
-
-      resultData.appendChild(msg);
-
     });
-  });
-}; 
+};
 
-
-
-
-// JavaScript for toggling dark mode
+// Dark mode toggle
 document.addEventListener('DOMContentLoaded', () => {
   const toggleButton = document.getElementById('mode-toggle');
   const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+  document.body.classList.toggle('dark-mode', isDarkMode);
+  toggleButton.textContent = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
 
-  // Apply saved mode preference
-  if (isDarkMode) {
-    document.body.classList.add('dark-mode');
-    toggleButton.textContent = 'Switch to Light Mode';
-  } else {
-    toggleButton.textContent = 'Switch to Dark Mode';
-  }
-
-  // Toggle dark mode on button click
   toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const darkModeEnabled = document.body.classList.contains('dark-mode');
+    const darkModeEnabled = document.body.classList.toggle('dark-mode');
     localStorage.setItem('dark-mode', darkModeEnabled);
-
     toggleButton.textContent = darkModeEnabled ? 'Switch to Light Mode' : 'Switch to Dark Mode';
   });
 });
 
-
 const main = () => {
-  displayRecipes();         // Load and display recipe images
+  displayRecipes();
   searchIngredient();
-  // addSubmitListener();     // Attach form submit listener for adding new recipes
 };
 
-document.addEventListener('DOMContentLoaded', main); // Ensure DOM is loaded before starting
+document.addEventListener('DOMContentLoaded', main);
 
-// Export functions for testing
 export {
   displayRecipes,
-  // addSubmitListener,
   searchIngredient,
   handleClick,
   main,
