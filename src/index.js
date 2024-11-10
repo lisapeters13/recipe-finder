@@ -6,32 +6,7 @@ const handleClick = (recipe) => {
   // Corrected: Update the right elements for instructions 
   document.querySelector('#instructions-display').textContent = recipe.instructions; 
 };
-// const addSubmitListener = () => {
-//   const form = document.getElementById('new-ramen');
-//   form.addEventListener('submit', (event) => {
-//     // event.preventDefault();  // Prevent form submission
 
-//     const newRamen = {
-//       name: event.target['name'].value,
-//       restaurant: event.target['restaurant'].value,
-//       image: event.target['image'].value,
-//       rating: event.target['rating'].value,
-//       comment: event.target['comment'].value
-//     };
-
-//     // Create new ramen img element
-//     const img = document.createElement('img');
-//     img.src = newRamen.image;
-//     img.alt = newRamen.name; 
-//     img.addEventListener('click', () => handleClick(newRamen)); 
-//     document.getElementById('ramen-menu').appendChild(img);
-
-//     form.reset(); // Reset form
-
-//     // After creating new ramen, automatically update the ramen detail section
-//     handleClick(newRamen);  // Ensures newly created ramen is displayed immediately
-//   });
-// };
 
 
 // The main function to display all recipe images
@@ -47,55 +22,80 @@ const displayRecipes = () => {
         img.alt = recipe.name;  // Add alt text for accessibility
         img.addEventListener('click', () => handleClick(recipe));  // Attach click event
         recipeMenu.appendChild(img); 
+       //mouse hover eventlistener 
+       document.getElementById("recipe-menu").addEventListener("mouseover", mouseOver(recipe.name));
       });
     });
 };
 
-// function searchRecipe(ingredient) {
-//   fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
-//     .then(response => response.json())
-//     .then(filteredRecipes => {
-//       displaySearchResults(filteredRecipes);
-//     })
-//     .catch(error => {
-//       console.error("Error fetching recipes:", error);
-//     });
-// }
+// document.getElementById("demo").addEventListener("mouseover", mouseOver);
+// document.getElementById("demo").addEventListener("mouseout", mouseOut);
 
-// Function to initiate the search for recipes based on an ingredient
-// function searchRecipe(ingredient) {
-//   fetch(`http://localhost:3000/recipes?ingredient=${ingredient}`) // Adjust API endpoint if needed
-//     .then(response => response.json())
-//     .then(filteredRecipes => {
-//       displaySearchResults(filteredRecipes);
-//     })
-//     .catch(error => {
-//       console.error("Error fetching recipes:", error);
-//     });
-// }
+function mouseOver(recipename) {
+  const recipeMenu = document.getElementById('recipe-menu');  // Get #recipe-menu div
+  // document.getElementById("recipe-menu").innerHTML = "red";
+  const hoverTitle = document.createElement('p');
+  hoverTitle.InnerText=recipename;
+  recipeMenu.appendChild(hoverTitle);
+}
 
-// Function to display search results
-// const displaySearchResults(recipes) {
-//   const resultsContainer = document.getElementById("recipe-results");
-//   resultsContainer.innerHTML = ""; // Clear previous results
+function mouseOut() {
+  document.getElementById("recipe-menu").style.color = "black";
+}
 
-//   if (recipes.length === 0) {
-//     resultsContainer.innerHTML = "<p>No recipes found for this ingredient.</p>";
-//     return;
-//   }
-
-// Add an event listener for the "click" event
-
-
-//search by ingredients
-const searchRecipe = () => {
-
-} 
 //get content of search box
 const searchIngredient = () => {
   fetch('http://localhost:3000/recipes')
   .then(response => response.json())
   .then(recipeData => {
+    //eventlistener for return key
+    document.querySelector('#search-text').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        // code for enter
+              
+        // Code to execute when the button is clicked
+        const searchTerm = document.getElementById("search-text").value;
+        //   const resultData = document.getElementById('recipe-results');
+        // resultData.innerHTML = "";    
+        
+          console.log("Searching for:", searchTerm); 
+    
+          // Perform your search logic here
+          const resultData = document.getElementById('recipe-results');  
+          // Get #recipe-results div
+          const recipeImage = document.getElementById('recipe-img');
+          const msg = document.createElement('p');
+          msg.innerText = "No recipes found with ingredient";
+    
+          //clear result section for new results
+          resultData.replaceChildren("")
+    
+          recipeData.forEach(recipe => {
+    
+            const ingredients = recipe.ingredients
+            const containsSubstring = ingredients.some(str => str.includes(searchTerm)); //returns true if found
+            
+            //check for empty or whitespace
+            if (/\S/.test(searchTerm) && containsSubstring) {
+              console.log(ingredients)
+    
+              // Create an img element for the recipe
+              const img = document.createElement('img');
+              img.src = recipe.image;
+              img.alt = recipe.name;  // Add alt text for accessibility
+              //create an element for the recipe title
+              const recipeTitle = document.createElement('h3')
+              recipeTitle.innerText = recipe.name;
+              
+              resultData.appendChild(img);
+              resultData.appendChild(recipeTitle)
+              //clear message for ingredients not found
+              msg.innerText = "";
+    
+            } 
+          });
+        }
+    });
     // Get the search button element
     const searchButton = document.getElementById("search-btn"); 
 
@@ -103,11 +103,14 @@ const searchIngredient = () => {
     searchButton.addEventListener( "click", function() { //add second lister for "return key"
       // Code to execute when the button is clicked
       const searchTerm = document.getElementById("search-text").value;
+    //   const resultData = document.getElementById('recipe-results');
+    // resultData.innerHTML = "";    
      
       console.log("Searching for:", searchTerm); 
 
       // Perform your search logic here
-      const resultData = document.getElementById('recipe-results');  // Get #recipe-results div
+      const resultData = document.getElementById('recipe-results');  
+      // Get #recipe-results div
       const recipeImage = document.getElementById('recipe-img');
       const msg = document.createElement('p');
       msg.innerText = "No recipes found with ingredient";
@@ -128,8 +131,12 @@ const searchIngredient = () => {
           const img = document.createElement('img');
           img.src = recipe.image;
           img.alt = recipe.name;  // Add alt text for accessibility
+          //create an element for the recipe title
+          const recipeTitle = document.createElement('h3')
+          recipeTitle.innerText = recipe.name;
+          
           resultData.appendChild(img);
-
+          resultData.appendChild(recipeTitle)
           //clear message for ingredients not found
           msg.innerText = "";
 
@@ -185,4 +192,3 @@ export {
   handleClick,
   main,
 };
-  
